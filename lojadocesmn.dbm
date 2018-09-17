@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.0" last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<database name="new_database">
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="smnlojadoce" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<table name="cliente">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="20" y="120"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="cpf" not-null="true">
+		<type name="numeric" length="11"/>
+	</column>
+	<constraint name="cliente_pk" type="pk-constr" table="smnlojadoce.cliente">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="telefone">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="20" y="420"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="numero" not-null="true">
+		<type name="numeric" length="11"/>
+		<comment><![CDATA[numero do telefone]]></comment>
+	</column>
+	<column name="idcliente" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="telefone_pk" type="pk-constr" table="smnlojadoce.telefone">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="fk_cliente_telefone" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="smnlojadoce.cliente"
+	 dst-table="smnlojadoce.telefone"
+	 src-required="false" dst-required="false"/>
+
+<table name="aquisicao">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="1000" y="60"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="dtaquisicao" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="aquisicao_pk" type="pk-constr" table="smnlojadoce.aquisicao">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="itemaquisicao">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="1000" y="260"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="quantidade" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="preco" not-null="true">
+		<type name="money" length="0"/>
+	</column>
+	<constraint name="itemaquisicao_pk" type="pk-constr" table="smnlojadoce.itemaquisicao">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="produto">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="580" y="240"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="preco" not-null="true">
+		<type name="money" length="0"/>
+		<comment><![CDATA[preço do produto a ser vendido]]></comment>
+	</column>
+	<column name="descricao">
+		<type name="varchar" length="100"/>
+	</column>
+	<constraint name="produto_pk" type="pk-constr" table="smnlojadoce.produto">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="marca">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="840" y="483"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="marca_pk" type="pk-constr" table="smnlojadoce.marca">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="categoria">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="620" y="40"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="tipo" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="categoria_pk" type="pk-constr" table="smnlojadoce.categoria">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="fk_categoria_produto" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="smnlojadoce.categoria"
+	 dst-table="smnlojadoce.produto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="fk_marca_produto" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="smnlojadoce.marca"
+	 dst-table="smnlojadoce.produto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="fk_produto_itemaquisicao" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="smnlojadoce.produto"
+	 dst-table="smnlojadoce.itemaquisicao"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="fk_aquisicao_itemaquisicao" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="smnlojadoce.aquisicao"
+	 dst-table="smnlojadoce.itemaquisicao"
+	 src-required="false" dst-required="false"/>
+
+<table name="venda">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="300" y="320"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="dt_venda" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="venda_pk" type="pk-constr" table="smnlojadoce.venda">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="fk_cliente_venda" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="smnlojadoce.cliente"
+	 dst-table="smnlojadoce.venda"
+	 src-required="false" dst-required="false"/>
+
+<table name="itemvenda">
+	<schema name="smnlojadoce"/>
+	<role name="postgres"/>
+	<position x="320" y="40"/>
+	<column name="quantidade" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="preco" not-null="true">
+		<type name="money" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_produto" index="2"/>
+		<object name="id_venda" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="produto_fk" index="0"/>
+		<object name="venda_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="fk_produto_vendaproduto" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="smnlojadoce.produto"
+	 dst-table="smnlojadoce.itemvenda"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="fk_venda_vendaproduto" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="smnlojadoce.venda"
+	 dst-table="smnlojadoce.itemvenda"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
